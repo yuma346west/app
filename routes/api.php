@@ -13,13 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 Route::group(['middleware' => ['api']], function(){
     Route::get('news', 'NewsController@index');
     Route::get('message', 'MessageController@post');
-});
-Route::get('sample/route', function () {
-    return 'PHP Framework Laravel Routing!!';
 });

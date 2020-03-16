@@ -4,26 +4,16 @@ namespace App\Http\Controllers;
 
 use App\News;
 use App\Service\MessageService;
+use App\Service\View\ViewContent;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class MessageController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $news = News::all();
-        return response($news->toJson());
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function post(Request $request)
     {
@@ -33,47 +23,19 @@ class MessageController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return View
      */
-    public function show($id)
+    public function list(Request $request)
     {
-        //
-    }
+        $service = MessageService::forge();
+        $list = $service->list(
+            $request->get('user_id', null),
+            $request->get('offset', 0),
+            $request->get('count', 9));
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        ViewContent::forge()->setContent($list);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('message_list')->with('content', ViewContent::forge()->getHtml());
     }
 }

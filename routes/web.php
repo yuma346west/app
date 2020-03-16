@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::group(['middleware' => ['web']], function() {
+    Route::group(['prefix' => '/message'], function () {
+        Route::get('list', 'MessageController@list');
+    });
 });
