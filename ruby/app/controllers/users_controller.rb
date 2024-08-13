@@ -61,6 +61,7 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
+      @first_post = @user.microposts.first
     end
 
     # Only allow a list of trusted parameters through.

@@ -1,9 +1,16 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @user %>
+<div>
+  <p>user info</p>
+  <hr/>
+  <%= render @user %>
+</div>
+<p>ポスト</p>
+<div><%= render @first_post %></div>
 
 <div>
   <%= link_to "Edit this user", edit_user_path(@user) %> |
+  <%= link_to "Post", microposts_path %> |
   <%= link_to "Back to users", users_path %>
 
   <%= button_to "Destroy this user", @user, method: :delete %>
