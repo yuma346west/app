@@ -1,0 +1,3 @@
+class User
+  VALID_EMAIL_REGEX: untyped
+end
